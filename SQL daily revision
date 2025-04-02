@@ -1,0 +1,3 @@
+1. Display all the allergies ordering them in descending order based on their popularity, also avoid null.
+SELECT DISTINCT(allergies),COUNT(*) as total_diagnosis FROM patients WHERE allergies IS NOT NULL  GROUP BY allergies ORDER BY total_diagnosis DESC; 
+
