@@ -1,3 +1,7 @@
 1. Display all the allergies ordering them in descending order based on their popularity, also avoid null.
 SELECT DISTINCT(allergies),COUNT(*) as total_diagnosis FROM patients WHERE allergies IS NOT NULL  GROUP BY allergies ORDER BY total_diagnosis DESC; 
 
+2.Show all patient's first_name, last_name, and birth_date who were born in the 1970s decade. Sort the list starting from the earliest birth_date.
+SELECT first_name,last_name,birth_date FROM patients WHERE year(birth_date) BETWEEN 1970 AND 1979 ORDER BY birth_date ASC;
+
+
