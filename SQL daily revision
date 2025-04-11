@@ -40,3 +40,6 @@ Convert KG to pounds by multiplying by 2.205.
 SELECT CONCAT(first_name,' ',last_name) AS patient_name,ROUND(height/30.48,1) as height,ROUND(weight*2.205,0) AS weight,birth_date,CASE WHEN gender = 'M' THEN 'MALE' WHEN gender = 'F' THEN 'FEMALE' END AS gender FROM patients;
 10. Show patient_id, first_name, last_name from patients whose does not have any records in the admissions table. (Their patient_id does not exist in any admissions.patient_id rows.)
 SELECT p.patient_id,p.first_name,p.last_name FROM patients p LEFT JOIN admissions a ON p.patient_id = a.patient_id WHERE a.patient_id IS NULL; 
+11. Display a single row with max_visits, min_visits, average_visits where the maximum, minimum and average number of admissions per day is calculated. Average is rounded to 2 decimal places.
+WITH daily_visits AS (SELECT admission_date,COUNT(*) as patient_count_per_day FROM admissions GROUP BY admission_date)
+SELECT MAX(patient_count_per_day) AS max_visits, MIN(patient_count_per_day) AS min_visits, ROUND(AVG(patient_count_per_day),2) FROM daily_visits;
