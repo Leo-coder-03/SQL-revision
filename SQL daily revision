@@ -49,3 +49,10 @@ Order the list by the weight group decending.
 For example, if they weight 100 to 109 they are placed in the 100 weight group, 110-119 = 110 weight group, etc.
 With normalisedWeight AS (SELECT patient_id , Floor(weight/10)*10 AS weightGrp FROM patients)
 SELECT COUNT(*) AS patients_in_group,weightGrp AS weight_group FROM normalisedWeight GROUP BY weightGrp ORDER BY weightGrp DESC;
+13. Show patient_id, weight, height, isObese from the patients table.
+Display isObese as a boolean 0 or 1.
+Obese is defined as weight(kg)/(height(m)2) >= 30.
+weight is in units kg.
+height is in units cm.
+WITH Obese AS (SELECT patient_id,weight,height,(weight/POWER(height / 100.0, 2)) as obesity FROM patients)
+SELECT patient_id,weight,height,CASE WHEN (obesity>=30)THEN 1 ELSE 0 END as isObese FROM Obese;
