@@ -71,3 +71,17 @@ SELECT DISTINCT(p.patient_id),CONCAT(p.patient_id,LENGTH(p.last_name),YEAR(birth
 Give each patient a 'Yes' if they have insurance, and a 'No' if they don't have insurance. Add up the admission_total cost for each has_insurance group.
 WITH insurance AS (SELECT patient_id, CASE WHEN (patient_id%2) == 0 THEN 'Yes' ELSE 'NO' END AS has_insurance, CASE WHEN (patient_id%2) == 0 THEN 10 ELSE 50 END AS cost  FROM admissions)
 SELECT has_insurance , SUM(cost) FROM insurance GROUP BY has_insurance;
+17. Show the provinces that has more patients identified as 'M' than 'F'. Must only show full province_name
+WITH genderCount AS (
+  SELECT
+    province_id,
+    SUM(CASE WHEN gender = 'M' THEN 1 ELSE 0 END) AS males,
+    SUM(CASE WHEN gender = 'F' THEN 1 ELSE 0 END) AS females
+  FROM patients
+  GROUP BY province_id
+)
+
+SELECT pr.province_name
+FROM province_names pr
+JOIN genderCount g ON pr.province_id = g.province_id
+WHERE g.males > g.females;
