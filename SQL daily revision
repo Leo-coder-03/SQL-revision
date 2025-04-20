@@ -94,3 +94,6 @@ WHERE g.males > g.females;
 - They are from the city 'Kingston'
 SELECT * FROM patients WHERE first_name LIKE '__r%' AND gender = 'F' AND MONTH(birth_date) IN (2,5,12) aND 
 weight BETWEEN 60 AND 80 AND MOD(patient_id,2)<>0 AND city = 'Kingston';
+19. Show the percent of patients that have 'M' as their gender. Round the answer to the nearest hundreth number and in percent form.
+WITH TotalPatientCount AS (SELECT COUNT(*) as totalCount,SUM(CASE WHEN gender = 'M' THEN 1 ELSE 0 END) AS maleCount FROM patients)
+SELECT CONCAT(ROUND((1.0*maleCount / totalCount) * 100, 2),'%') as percent_of_male_patients FROM TotalPatientCount; 
