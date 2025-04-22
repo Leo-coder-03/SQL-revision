@@ -97,3 +97,5 @@ weight BETWEEN 60 AND 80 AND MOD(patient_id,2)<>0 AND city = 'Kingston';
 19. Show the percent of patients that have 'M' as their gender. Round the answer to the nearest hundreth number and in percent form.
 WITH TotalPatientCount AS (SELECT COUNT(*) as totalCount,SUM(CASE WHEN gender = 'M' THEN 1 ELSE 0 END) AS maleCount FROM patients)
 SELECT CONCAT(ROUND((1.0*maleCount / totalCount) * 100, 2),'%') as percent_of_male_patients FROM TotalPatientCount; 
+20. Sort the province names in ascending order in such a way that the province 'Ontario' is always on top.
+SELECT province_name FROM province_names ORDER BY (province_name!='Ontario'),province_name ASC;
